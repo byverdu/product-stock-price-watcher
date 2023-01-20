@@ -1,4 +1,4 @@
-import * as httpClient from './';
+import * as httpClient from './index';
 import { Response } from 'undici';
 import { HttpClient } from '@types-product-stock-price-watcher';
 
@@ -35,9 +35,7 @@ describe('httpClient', () => {
       expect(global.fetch).toBeCalledTimes(1);
       expect(global.fetch).toBeCalledWith('http://test.com');
 
-      const resp = await request.json();
-
-      expect(resp).toEqual({ value: 12 });
+      await expect(request.json()).resolves.toEqual({ value: 12 });
     });
   });
   describe('post method', () => {
@@ -66,9 +64,7 @@ describe('httpClient', () => {
         body: 'true',
       });
 
-      const resp = await request.json();
-
-      expect(resp).toEqual({ value: 12 });
+      await expect(request.json()).resolves.toEqual({ value: 12 });
     });
   });
 });
