@@ -10,7 +10,6 @@ const jestConfig: JestConfigWithTsJest = {
       },
     ],
   },
-  testPathIgnorePatterns: ['^.+\\.js$'],
 };
 
 export default jestConfig;
