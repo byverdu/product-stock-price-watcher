@@ -1,8 +1,6 @@
 import request from 'supertest';
 import { expressApp } from '@app';
 
-jest.mock('./services/user');
-
 let app: Express.Application;
 
 beforeEach(() => {
