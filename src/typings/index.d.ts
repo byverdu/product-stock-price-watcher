@@ -10,4 +10,15 @@ declare module '@types-product-stock-price-watcher' {
     }: Pick<HttpClientArgs, 'url'>) => Promise<import('undici').Response>;
     post: (params: HttpClientArgs) => Promise<import('undici').Response>;
   }
+
+  export type WatchType = 'price' | 'stock';
+
+  export interface Product {
+    brand: string;
+    url: string;
+    type: WatchType;
+    price: number;
+    newPrice: number;
+    cssSelector: string;
+  }
 }
