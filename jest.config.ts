@@ -10,6 +10,7 @@ const jestConfig: JestConfigWithTsJest = {
       },
     ],
   },
+  setupFilesAfterEnv: ['./jest/setupTests.js'],
   testPathIgnorePatterns: ['^.+\\.js$'],
 };
 
