@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 
 import { healthRouter } from '@routes/health';
+import { productsRouter } from '@routes/products';
 
 const expressApp = () => {
   const app: Express = express();
@@ -13,6 +14,7 @@ const expressApp = () => {
   app.use(bodyParser.json());
 
   app.use('/health', healthRouter);
+  app.use('/products', productsRouter);
 
   app.use((req, res) => {
     res.status(404).send(`No handler found for ${req.url}`);

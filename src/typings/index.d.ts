@@ -18,7 +18,11 @@ declare module '@types-product-stock-price-watcher' {
     url: string;
     type: WatchType;
     price: number;
-    newPrice: number;
+    newPrice?: number;
     cssSelector: string;
+  }
+
+  export interface AppConfig {
+    dataPath: string;
   }
 }

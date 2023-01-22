@@ -27,6 +27,7 @@ module.exports = {
         ignore: ['@types-product-stock-price-watcher'],
       },
     ],
+    '@typescript-eslint/no-misused-promises': 0,
   },
   settings: {
     'import/resolver': {
