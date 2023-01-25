@@ -3,7 +3,7 @@ import { Response, Request } from 'express';
 import { Product } from '@types-product-stock-price-watcher';
 import * as handlers from './handlers';
 import * as fileManager from '@services/fileManager';
-import { priceProduct } from '@routes/__mocks__/index';
+import { priceProduct, productsResponse } from '@routes/__mocks__/index';
 
 jest.mock('../../services/fileManager');
 
@@ -158,11 +158,67 @@ describe('Product handlers', () => {
       expect(response.send).toHaveBeenCalledWith(false);
     });
 
-    it('should return false if no data is written', async () => {
+    it('should catch errors', async () => {
       jest.spyOn(handlers, 'isProduct').mockReturnValue(true);
       jest.spyOn(fileManager, 'writeFileAsync').mockRejectedValue('Some Error');
 
       await handlers.postProductsHandler(request, response);
+
+      expect(response.status).toHaveBeenCalledWith(500);
+      expect(response.send).toHaveBeenCalledWith('Some Error');
+    });
+  });
+
+  describe('deleteProductsHandler', () => {
+    const request = {
+      params: { id: '34' },
+    } as unknown as Request<{ id: string }>;
+
+    it('should be defined', () => {
+      expect(handlers.deleteProductsHandler).toBeInstanceOf(Function);
+    });
+
+    it('should call fileManager.readFileAsync and fileManager.writeFileAsync and filter out the product', async () => {
+      jest
+        .spyOn(fileManager, 'readFileAsync')
+        .mockResolvedValue(productsResponse);
+      jest.spyOn(fileManager, 'writeFileAsync').mockResolvedValue(true);
+
+      await handlers.deleteProductsHandler(request, response);
+
+      expect(fileManager.readFileAsync).toBeCalledTimes(1);
+
+      expect(fileManager.writeFileAsync).toBeCalledTimes(1);
+      expect(fileManager.writeFileAsync).lastCalledWith('src/data/index.json', [
+        priceProduct,
+      ]);
+    });
+
+    it('should return true if the file is written successfully', async () => {
+      jest.spyOn(handlers, 'isProduct').mockReturnValue(true);
+      jest.spyOn(fileManager, 'writeFileAsync').mockResolvedValue(true);
+
+      await handlers.deleteProductsHandler(request, response);
+
+      expect(response.status).toHaveBeenCalledWith(200);
+      expect(response.send).toHaveBeenCalledWith(true);
+    });
+
+    it('should return false if no data is written', async () => {
+      jest.spyOn(handlers, 'isProduct').mockReturnValue(true);
+      jest.spyOn(fileManager, 'writeFileAsync').mockResolvedValue(false);
+
+      await handlers.deleteProductsHandler(request, response);
+
+      expect(response.status).toHaveBeenCalledWith(200);
+      expect(response.send).toHaveBeenCalledWith(false);
+    });
+
+    it('should catch errors', async () => {
+      jest.spyOn(handlers, 'isProduct').mockReturnValue(true);
+      jest.spyOn(fileManager, 'writeFileAsync').mockRejectedValue('Some Error');
+
+      await handlers.deleteProductsHandler(request, response);
 
       expect(response.status).toHaveBeenCalledWith(500);
       expect(response.send).toHaveBeenCalledWith('Some Error');

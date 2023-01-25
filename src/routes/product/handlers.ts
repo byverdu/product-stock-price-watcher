@@ -68,4 +68,30 @@ const postProductsHandler = async (req: Request, res: Response) => {
   }
 };
 
-export { postProductsHandler };
+const deleteProductsHandler = async (
+  req: Request<{ id: string }>,
+  res: Response
+) => {
+  const productId = req.params.id;
+
+  try {
+    const data = (await readFileAsync(config.dataPath)) ?? [];
+    const newItems: Product[] = data.filter(
+      product => product.id !== productId
+    );
+    const fileWritten = await writeFileAsync(config.dataPath, newItems);
+
+    if (fileWritten) {
+      res.status(200);
+      res.send(true);
+    } else {
+      res.status(200);
+      res.send(false);
+    }
+  } catch (error) {
+    res.status(500);
+    res.send(String(error));
+  }
+};
+
+export { postProductsHandler, deleteProductsHandler };
