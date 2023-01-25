@@ -18,7 +18,7 @@ describe('fileManager service', () => {
     it('should call fs.promises.writeFile', async () => {
       jest.spyOn(fs.promises, 'writeFile');
 
-      await service.writeFileAsync([{} as Product], '/src');
+      await service.writeFileAsync('/src', [{} as Product]);
 
       expect(fs.promises.writeFile).toBeCalledTimes(1);
       expect(fs.promises.writeFile).toBeCalledWith('/src', '[{}]', {
@@ -30,8 +30,8 @@ describe('fileManager service', () => {
       jest.spyOn(fs.promises, 'writeFile').mockResolvedValue(undefined);
 
       await expect(
-        service.writeFileAsync([{} as Product], '/src')
-      ).resolves.toEqual('Data saved');
+        service.writeFileAsync('/src', [{} as Product])
+      ).resolves.toEqual(true);
     });
 
     it('should handle fs.promises.writeFile errors', async () => {
@@ -40,7 +40,7 @@ describe('fileManager service', () => {
         .mockRejectedValue(new Error('Something went wrong'));
 
       await expect(
-        service.writeFileAsync([{} as Product], '/src')
+        service.writeFileAsync('/src', [{} as Product])
       ).rejects.toThrowError('Something went wrong');
     });
   });

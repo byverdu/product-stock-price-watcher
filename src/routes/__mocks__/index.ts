@@ -1,6 +1,7 @@
 import { Product } from '@types-product-stock-price-watcher';
 
 const priceProduct: Product = {
+  id: 'id',
   brand: 'LG',
   url: 'string',
   type: 'price',
@@ -8,6 +9,7 @@ const priceProduct: Product = {
   price: 234,
 };
 const stockProduct: Product = {
+  id: 'id',
   brand: 'LG',
   url: 'string',
   type: 'stock',

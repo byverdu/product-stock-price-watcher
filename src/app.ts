@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 
 import { healthRouter } from '@routes/health';
 import { productsRouter } from '@routes/products';
+import { productRouter } from '@routes/product';
 
 const expressApp = () => {
   const app: Express = express();
@@ -15,6 +16,7 @@ const expressApp = () => {
 
   app.use('/health', healthRouter);
   app.use('/products', productsRouter);
+  app.use('/product', productRouter);
 
   app.use((req, res) => {
     res.status(404).send(`No handler found for ${req.url}`);

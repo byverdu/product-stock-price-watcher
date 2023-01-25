@@ -3,11 +3,11 @@ import { promises } from 'fs';
 
 const { writeFile, readFile } = promises;
 
-const writeFileAsync = async (newContent: Product[], path: string) => {
+const writeFileAsync = async (path: string, newContent: Product[]) => {
   try {
     await writeFile(path, JSON.stringify(newContent), { encoding: 'utf-8' });
 
-    return 'Data saved';
+    return true;
   } catch (error) {
     console.error(error);
     throw error;

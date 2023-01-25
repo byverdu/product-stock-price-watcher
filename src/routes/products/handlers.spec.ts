@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Request, Response } from 'express';
+import { WatchType } from '@types-product-stock-price-watcher';
 import * as handlers from './handlers';
 import * as fileManager from '@services/fileManager';
 import {
@@ -7,7 +8,6 @@ import {
   priceProduct,
   stockProduct,
 } from '@routes/__mocks__/index';
-import { WatchType } from '@types-product-stock-price-watcher';
 
 jest.mock('../../services/fileManager');
 
