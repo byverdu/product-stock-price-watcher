@@ -18,7 +18,29 @@ Ability to get alerts when a product price changes or new products are added.
 
 ## How to do it
 
-- Schedule when we want to check the products
-- Request the url and pass the content to cheerio
-- Check if the stored values has changed from the current ones
-- If they changed send an email with the info
+- Create an API with [Express](https://expressjs.com/) to interact with products.
+- Schedule when the App will check the products, possible npm packages:
+  - [Node-schedule](https://www.npmjs.com/package/node-schedule)
+  - [Agenda](https://github.com/agenda/agenda)
+  - [Bree](https://github.com/breejs/bree)
+  - [node-cron](https://www.npmjs.com/package/node-cron)
+- Scrape the products page with [Cheerio](https://cheerio.js.org/)
+- Send emails with [Nodemailer](https://nodemailer.com/about/)
+- Handle app crashes with [pm2](https://pm2.keymetrics.io/docs/usage/quick-start/)
+
+## Next on the list
+
+- [x] API
+- [ ] Scheduler service
+- [ ] web scrapper service with Cheerio
+- [ ] email sender service with NodeMailer
+- [ ] PM2 setup
+
+
+## Things to refactor
+
+- [ ] return values from Promises, Boolean or String
+- [ ] add more props to Product, `urlImg`, `description`, `createdDate` and maybe `hasChanged`? although if it has `newPrice` it changed
+- [ ] move `res.status(200)`, so only one is used
+- [ ] change `config.dataPath`
+- [ ] endpoint to fetch products that price has changed
