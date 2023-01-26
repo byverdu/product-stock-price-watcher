@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { postProductsHandler } from './handlers';
+import { postProductsHandler, deleteProductsHandler } from './handlers';
 
 const productRouter = Router();
 
 productRouter.post('/', postProductsHandler);
-productRouter.delete('/id/:id');
+productRouter.delete('/id/:id', deleteProductsHandler);
 
 export { productRouter };

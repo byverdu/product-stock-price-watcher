@@ -72,6 +72,13 @@ describe('getProductsHandler', () => {
 });
 
 describe('getProductsByTypeHandler', () => {
+  const requestBuilder = (type: string) => {
+    return {
+      params: { type },
+    } as unknown as Request<{
+      type: WatchType;
+    }>;
+  };
   it('should be defined', () => {
     expect(handlers.getProductsByTypeHandler).toBeInstanceOf(Function);
   });
@@ -86,26 +93,18 @@ describe('getProductsByTypeHandler', () => {
   });
 
   it('should check if "type" params has a correct value', async () => {
-    const request = {
-      params: { types: 'byverdu' },
-    } as unknown as Request<{
-      type: WatchType;
-    }>;
-    await handlers.getProductsByTypeHandler(request, response);
+    await handlers.getProductsByTypeHandler(
+      requestBuilder('byverdu'),
+      response
+    );
 
     expect(response.send).toHaveBeenCalledWith('Wrong type params used.');
   });
 
   it('should call fileManager.readFileAsync', async () => {
-    jest.spyOn(fileManager, 'readFileAsync');
+    jest.spyOn(fileManager, 'readFileAsync').mockResolvedValue([]);
 
-    const request = {
-      params: { type: 'price' },
-    } as unknown as Request<{
-      type: WatchType;
-    }>;
-
-    await handlers.getProductsByTypeHandler(request, response);
+    await handlers.getProductsByTypeHandler(requestBuilder('price'), response);
 
     expect(fileManager.readFileAsync).toBeCalledTimes(1);
     expect(fileManager.readFileAsync).lastCalledWith('src/data/index.json');
@@ -116,13 +115,7 @@ describe('getProductsByTypeHandler', () => {
       .spyOn(fileManager, 'readFileAsync')
       .mockResolvedValue(productsResponse);
 
-    const request = {
-      params: { type: 'price' },
-    } as unknown as Request<{
-      type: WatchType;
-    }>;
-
-    await handlers.getProductsByTypeHandler(request, response);
+    await handlers.getProductsByTypeHandler(requestBuilder('price'), response);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith([priceProduct]);
@@ -133,13 +126,7 @@ describe('getProductsByTypeHandler', () => {
       .spyOn(fileManager, 'readFileAsync')
       .mockResolvedValue(productsResponse);
 
-    const request = {
-      params: { type: 'stock' },
-    } as unknown as Request<{
-      type: WatchType;
-    }>;
-
-    await handlers.getProductsByTypeHandler(request, response);
+    await handlers.getProductsByTypeHandler(requestBuilder('stock'), response);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.json).toHaveBeenCalledWith([stockProduct]);
@@ -148,13 +135,7 @@ describe('getProductsByTypeHandler', () => {
   it('should return "No data found" if empty response from fileManager.readFileAsync', async () => {
     jest.spyOn(fileManager, 'readFileAsync');
 
-    const request = {
-      params: { type: 'stock' },
-    } as unknown as Request<{
-      type: WatchType;
-    }>;
-
-    await handlers.getProductsByTypeHandler(request, response);
+    await handlers.getProductsByTypeHandler(requestBuilder('stock'), response);
 
     expect(response.status).toHaveBeenCalledWith(200);
     expect(response.send).toHaveBeenCalledWith('No data found');
@@ -163,13 +144,7 @@ describe('getProductsByTypeHandler', () => {
   it('should catch Errors from fileManager.readFileAsync', async () => {
     jest.spyOn(fileManager, 'readFileAsync').mockRejectedValue('some error');
 
-    const request = {
-      params: { type: 'stock' },
-    } as unknown as Request<{
-      type: WatchType;
-    }>;
-
-    await handlers.getProductsByTypeHandler(request, response);
+    await handlers.getProductsByTypeHandler(requestBuilder('stock'), response);
 
     expect(response.status).toHaveBeenCalledWith(500);
     expect(response.send).toHaveBeenCalledWith('some error');
