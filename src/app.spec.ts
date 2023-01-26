@@ -52,9 +52,6 @@ describe('App', () => {
 
   it('should have a POST /product route', async () => {
     jest.spyOn(handlers, 'isProduct').mockReturnValue(true);
-    jest
-      .spyOn(fileManager, 'readFileAsync')
-      .mockResolvedValue(productsResponse);
     jest.spyOn(fileManager, 'writeFileAsync').mockResolvedValue(true);
 
     const body = {
@@ -85,6 +82,17 @@ describe('App', () => {
     expect(resp.ok).toEqual(true);
     expect(resp.type).toEqual('text/html');
     expect(resp.text).toEqual('Mandatory fields are missing: brand');
+  });
+
+  it('should have a DELETE /product/id/:id route', async () => {
+    jest.spyOn(handlers, 'isProduct').mockReturnValue(true);
+    jest.spyOn(fileManager, 'writeFileAsync').mockResolvedValue(true);
+
+    const resp = await request(app).delete('/product/id/34');
+
+    expect(resp.ok).toEqual(true);
+    expect(resp.type).toEqual('application/json');
+    expect(resp.body).toEqual(true);
   });
 
   it('should handle 404 requests', async () => {
