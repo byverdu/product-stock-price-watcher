@@ -32,8 +32,8 @@ Ability to get alerts when a product price changes or new products are added.
 
 - [x] API
 - [ ] Scheduler service
-- [ ] web scrapper service with Cheerio
-- [ ] email sender service with NodeMailer
+- [ ] Web scrapper service
+- [ ] Email sender service
 - [ ] PM2 setup
 
 
