@@ -22,15 +22,15 @@ describe('httpClient', () => {
     it('should be called with an url param', async () => {
       jest.spyOn(httpClient, 'get');
 
-      await httpClient.get({ url: 'http://test.com' });
+      await httpClient.get('http://test.com');
 
       expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith({ url: 'http://test.com' });
+      expect(httpClient.get).toBeCalledWith('http://test.com');
     });
     it('should call fetch and resolve .json()', async () => {
       const { get }: HttpClient = jest.requireActual('./');
 
-      const request = await get({ url: 'http://test.com' });
+      const request = await get('http://test.com');
 
       expect(global.fetch).toBeCalledTimes(1);
       expect(global.fetch).toBeCalledWith('http://test.com');

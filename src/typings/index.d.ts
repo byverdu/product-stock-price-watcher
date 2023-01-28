@@ -5,9 +5,7 @@ declare module '@types-product-stock-price-watcher' {
   }
 
   export interface HttpClient {
-    get: ({
-      url,
-    }: Pick<HttpClientArgs, 'url'>) => Promise<import('undici').Response>;
+    get: (url: string) => Promise<import('undici').Response>;
     post: (params: HttpClientArgs) => Promise<import('undici').Response>;
   }
 
