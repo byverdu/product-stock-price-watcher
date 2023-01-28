@@ -20,10 +20,9 @@ Ability to get alerts when a product price changes or new products are added.
 
 - Create an API with [Express](https://expressjs.com/) to interact with products.
 - Schedule when the App will check the products, possible npm packages:
-  - [Node-schedule](https://www.npmjs.com/package/node-schedule)
-  - [Agenda](https://github.com/agenda/agenda)
-  - [Bree](https://github.com/breejs/bree)
-  - [node-cron](https://www.npmjs.com/package/node-cron)
+  - [node-schedule](https://www.npmjs.com/package/node-schedule)
+  - [bree](https://github.com/breejs/bree)
+  - [toad-scheduler](https://github.com/kibertoad/toad-scheduler)
 - Scrape the products page with [Cheerio](https://cheerio.js.org/)
 - Send emails with [Nodemailer](https://nodemailer.com/about/)
 - Handle app crashes with [pm2](https://pm2.keymetrics.io/docs/usage/quick-start/)
@@ -35,7 +34,6 @@ Ability to get alerts when a product price changes or new products are added.
 - [ ] Web scrapper service
 - [ ] Email sender service
 - [ ] PM2 setup
-
 
 ## Things to refactor
 
