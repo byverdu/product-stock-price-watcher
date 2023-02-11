@@ -1,4 +1,4 @@
-import * as HttpClient from '@services/httpClient';
+import * as httpClient from '@services/httpClient';
 import { Product } from '@types-product-stock-price-watcher';
 import { Response } from 'undici';
 import * as cheerio from 'cheerio';
@@ -29,19 +29,19 @@ describe('scrapper', () => {
 
   it('should call httpClient.get with the product url', async () => {
     jest
-      .spyOn(HttpClient, 'get')
+      .spyOn(httpClient, 'get')
       .mockReturnValue(Promise.resolve(mockResponse('')));
 
     await service.scrapper(product);
 
-    expect(HttpClient.get).toBeCalledTimes(1);
-    expect(HttpClient.get).toBeCalledWith(product.url);
+    expect(httpClient.get).toBeCalledTimes(1);
+    expect(httpClient.get).toBeCalledWith(product.url);
   });
 
   it('should call cheerio.load', async () => {
     jest.mock('cheerio');
     jest
-      .spyOn(HttpClient, 'get')
+      .spyOn(httpClient, 'get')
       .mockReturnValue(Promise.resolve(mockResponse('<div>Hello</div>')));
     jest.spyOn(cheerio, 'load');
 
@@ -55,7 +55,7 @@ describe('scrapper', () => {
     jest.mock('../utils');
     jest.spyOn(utils, 'toNumber');
     jest
-      .spyOn(HttpClient, 'get')
+      .spyOn(httpClient, 'get')
       .mockReturnValue(
         Promise.resolve(
           mockResponse(
@@ -72,7 +72,7 @@ describe('scrapper', () => {
 
   it('should return the number if Cheerio finds the css selector', async () => {
     jest
-      .spyOn(HttpClient, 'get')
+      .spyOn(httpClient, 'get')
       .mockReturnValue(
         Promise.resolve(
           mockResponse(
@@ -86,7 +86,7 @@ describe('scrapper', () => {
 
   it('should return null if Cheerio can not find the css selector', async () => {
     jest
-      .spyOn(HttpClient, 'get')
+      .spyOn(httpClient, 'get')
       .mockReturnValue(
         Promise.resolve(
           mockResponse('<div class="total"><strong>£1,049.98</strong></div>')
@@ -97,7 +97,7 @@ describe('scrapper', () => {
   });
 
   it('should throw an Error if the GET request fails', async () => {
-    jest.spyOn(HttpClient, 'get').mockRejectedValue(new Error('some error'));
+    jest.spyOn(httpClient, 'get').mockRejectedValue(new Error('some error'));
 
     await expect(service.scrapper(product)).rejects.toThrow('some error');
   });
