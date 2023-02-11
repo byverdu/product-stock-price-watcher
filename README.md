@@ -42,3 +42,4 @@ Ability to get alerts when a product price changes or new products are added.
 - [ ] move `res.status(200)`, so only one is used
 - [ ] change `config.dataPath`
 - [ ] endpoint to fetch products that price has changed
+- [ ] delete all endpoint

@@ -1,9 +1,14 @@
 import * as cheerio from 'cheerio';
 import { get } from '@services/httpClient';
-import { Product } from '@types-product-stock-price-watcher';
 import { toNumber } from '@services/utils';
 
-const scrapper = async ({ cssSelector, url }: Product) => {
+const scrapper = async ({
+  cssSelector,
+  url,
+}: {
+  cssSelector: string;
+  url: string;
+}) => {
   try {
     const fetchContent = await get(url);
     const pageContent = await fetchContent.text();
