@@ -3,15 +3,24 @@ const toNumber = (price: string): number | null => {
     return null;
   }
 
-  const positiveNumber = 1;
-  const validNumberDigits = /[.\d]/g;
-  const filteredDigits = price
-    .split('')
-    .filter(digit => digit.match(validNumberDigits))
-    .join('');
-  const candidateNumber = Number(filteredDigits);
+  const currency =
+    ['£', '$', '€'].filter(currency => price.includes(currency)).pop() ?? '£';
 
-  return Math.sign(candidateNumber) === positiveNumber ? candidateNumber : null;
+  const result = price
+    .split(currency)
+    .map(words => {
+      if (!words) {
+        return null;
+      }
+
+      const withoutComma = words.trim().replace(',', '');
+
+      return !isNaN(Number(withoutComma)) ? Number(withoutComma) : null;
+    })
+    .filter((num: number | null) => typeof num === 'number')
+    .pop();
+
+  return result ?? null;
 };
 
 export { toNumber };
