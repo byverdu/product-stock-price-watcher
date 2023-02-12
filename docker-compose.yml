@@ -4,14 +4,14 @@ services:
   stock-alert-api:
     build:
       context: .
-      dockerfile: ./app/Dockerfile
+      dockerfile: ./app/api/Dockerfile
     image: stock-alert-api
     container_name: stock-alert-api
     restart: always
     volumes:
       - /usr/app/node_modules
-      - ./app/src:/usr/app/src
-      - ./app/dist:/usr/app/dist
+      - ./app/api/src:/usr/app/src
+      - ./app/api/dist:/usr/app/dist
     networks:
       - app-network
     ports:
