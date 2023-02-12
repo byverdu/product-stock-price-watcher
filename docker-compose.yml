@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  stock-alert-api:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    image: stock-alert-api
+    container_name: stock-alert-api
+    restart: always
+    volumes:
+      - /usr/app/node_modules
+      - ./app/src:/usr/app/src
+      - ./app/dist:/usr/app/dist
+    networks:
+      - app-network
+    ports:
+      - "3000:3000"
+networks:
+  app-network:
+    driver: bridge

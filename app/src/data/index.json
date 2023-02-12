@@ -1,0 +1,26 @@
+[
+  {
+    "type": "price",
+    "brand": "LG",
+    "cssSelector": ".total-price-num strong",
+    "id": "659a01a9-eac6-4d33-8cb9-7eccb3012401",
+    "price": 1049.98,
+    "url": "https://www.lg.com/uk/monitors/lg-32gq950-b"
+  },
+  {
+    "type": "price",
+    "brand": "Samsung",
+    "cssSelector": ".cost-box__price strong",
+    "price": 1299,
+    "url": "https://www.samsung.com/uk/monitors/gaming/odyssey-oled-g8-g85sb-34-inch-175hz-curved-ultra-wqhd-ls34bg850suxxu/",
+    "id": "0a6e54b9-c02a-4e06-a16a-968b72062427"
+  },
+  {
+    "type": "price",
+    "brand": "DELL",
+    "cssSelector": ".ps-dell-price",
+    "price": 646.8,
+    "url": "https://www.dell.com/en-uk/shop/dell-ultrasharp-27-4k-usb-c-hub-monitor-u2723qe/apd/210-bcxk/monitors-monitor-accessories",
+    "id": "e7dfd0dc-0523-4ad8-9808-deaf597f4c55"
+  }
+]

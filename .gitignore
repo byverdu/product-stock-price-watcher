@@ -2,7 +2,7 @@ node_modules
 yarn-error.log
 .DS_Store
 .vscode
-/dist
-/coverage
+dist
+coverage
 /src/data/
 .env
