@@ -16,6 +16,22 @@ services:
       - app-network
     ports:
       - "3000:3000"
+  stock-alert-scheduler:
+    build:
+      context: .
+      dockerfile: ./app/scheduler/Dockerfile
+    image: stock-alert-scheduler
+    container_name: stock-alert-scheduler
+    depends_on:
+      - stock-alert-api
+    networks:
+      - app-network
+    restart: always
+    volumes:
+      - /usr/app/node_modules
+      - ./app/scheduler/src:/usr/app/src
+      - ./app/scheduler/dist:/usr/app/dist
+
 networks:
   app-network:
     driver: bridge
