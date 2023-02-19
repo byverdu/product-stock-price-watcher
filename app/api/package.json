@@ -12,9 +12,8 @@
     "lint": "tsc --noEmit && eslint ./src --fix",
     "dev:tsc": "tsc --watch",
     "dev:nodemon": "nodemon --delay 500ms ./dist/server.js",
-    "dev:scheduler": "nodemon --delay 500ms ./dist/services/scheduler/index.js",
-    "dev": "npm-run-all --parallel dev:tsc dev:nodemon dev:scheduler",
-    "prepare": "ts-patch install -s && husky install"
+    "dev": "nodemon",
+    "prepare": "ts-patch install -s"
   },
   "keywords": [],
   "author": "",
@@ -33,7 +32,6 @@
     "eslint": "^8.25.0",
     "eslint-import-resolver-typescript": "^3.5.1",
     "eslint-plugin-import": "^2.26.0",
-    "husky": "^8.0.1",
     "jest": "^29.2.1",
     "nodemon": "^2.0.20",
     "npm-run-all": "^4.1.5",
@@ -48,15 +46,10 @@
   },
   "dependencies": {
     "body-parser": "^1.20.1",
-    "cheerio": "1.0.0-rc.12",
     "concurrently": "^7.5.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "morgan": "^1.10.0",
-    "nodemailer": "^6.9.1",
-    "nodemailer-express-handlebars": "^6.0.0",
-    "puppeteer": "^19.6.3",
-    "toad-scheduler": "^2.2.0"
+    "morgan": "^1.10.0"
   }
 }
